@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    public int inputSpeed = 1;
+    public float MoveSpeed = 1, inputSpeed = 1;
+
     private Vector2 lookInput, screenCenter, mouseDistance;
+    [SerializeField] private GameObject prefab;
 
     private void Start()
     {
@@ -21,9 +24,19 @@ public class MouseMovement : MonoBehaviour
         mouseDistance.x = (lookInput.x - screenCenter.x) / screenCenter.x;
         mouseDistance.y = (lookInput.y - screenCenter.y) / screenCenter.y;
 
-        if (Input.GetMouseButton(0))
+        transform.position +=  Vector3.right * MoveSpeed * Time.deltaTime;
+
+        MoveSpeed = Mathf.Lerp(MoveSpeed, Input.GetAxisRaw("Horizontal") * inputSpeed, Time.deltaTime);
+
+
+        if (Input.GetMouseButtonUp(0))
         {
+            Bonk();
         }
     }
 
+    private void Bonk()
+    {
+        Instantiate(prefab, lookInput, Quaternion.identity);
+    }
 }
