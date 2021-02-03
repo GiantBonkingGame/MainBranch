@@ -14,7 +14,7 @@ public class MouseMovement : MonoBehaviour
     private List<GameObject> CollisionList;
     private float mouseposX;
 
-    
+
     private bool bonked;
     private Vector3 rand;
     [SerializeField] float TimeBetweenFrames;
@@ -37,10 +37,13 @@ public class MouseMovement : MonoBehaviour
             {
                 mouseposX = rayHit.point.x;
             }
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX,  MoveSpeed * Time.deltaTime), offset, 0);
+            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), offset, 0);
 
             if (Input.GetMouseButtonUp(0))
+            {
+                GameManager.instance.SmashAt(transform.position.x); //<- for the human AI
                 StartCoroutine(animator());
+            }
         }
 
 
@@ -57,16 +60,16 @@ public class MouseMovement : MonoBehaviour
 
             else { spriteholder.sortingOrder = 1; }
 
-            if (i == 3)
+            if (i == 2)
             {
                 Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position + Vector3.down * hammerOffset, hammerSize, 0f);
-                foreach  (Collider2D collider in cols)
+                foreach (Collider2D collider in cols)
                 {
                     collider.gameObject.GetComponent<Human_AI>()?.Smashed();
                 }
             }
 
-            yield return new WaitForSeconds(TimeBetweenFrames);          
+            yield return new WaitForSeconds(TimeBetweenFrames);
         }
         bonked = false;
     }
