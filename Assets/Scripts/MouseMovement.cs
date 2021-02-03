@@ -2,18 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class MouseMovement : MonoBehaviour
 {
     public float MoveSpeed = 1;
 
     // Link it in unity
-    [SerializeField] Animation animation;
+    [SerializeField] Sprite[] sprites;
 
+    public SpriteRenderer spriteholder;
     private List<GameObject> CollisionList;
     private float mouseposX;
+
+    private bool bonked;
     private Vector3 rand;
+    [SerializeField] float TimeBetweenFrames;
+    [SerializeField] float offset;
+
     private void Start()
     {
         Cursor.visible = false;
@@ -21,32 +26,37 @@ public class MouseMovement : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit rayHit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity))
+        if (!bonked)
         {
-            mouseposX = rayHit.point.x;
-        }
-        transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), 0, 0);
-
-        if (Input.GetMouseButtonUp(0))
-            Bonk();
-    }
-
-    private void Bonk()
-    {
-        //start animation
-
-        //start this code once animation is finished. (change the 0 value to hammer hit)
-        if (animation.clip.length == 0f)
-        {
-            foreach  (GameObject collider in CollisionList)
+            RaycastHit rayHit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity))
             {
-                collider.SetActive(false);
+                mouseposX = rayHit.point.x;
             }
+            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX,  MoveSpeed * Time.deltaTime), offset, 0);
+
+            if (Input.GetMouseButtonUp(0))
+                StartCoroutine(animator());
         }
+
+
     }
 
+    private IEnumerator animator()
+    {
+        bonked = true;
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            spriteholder.sprite = sprites[i];
 
+            if (i > 1 && i < 5) { spriteholder.sortingOrder = 4; }
+
+            else { spriteholder.sortingOrder = 1; }                
+            
+            yield return new WaitForSeconds(TimeBetweenFrames);          
+        }
+        bonked = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -56,5 +66,6 @@ public class MouseMovement : MonoBehaviour
     {
         CollisionList.Remove(other.gameObject);
     }
+
 
 }
