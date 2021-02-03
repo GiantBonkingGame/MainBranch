@@ -5,38 +5,52 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    public float MoveSpeed = 1, inputSpeed = 1;
+    public float MoveSpeed = 1;
 
-    private Vector2 lookInput, screenCenter, mouseDistance;
-    [SerializeField] private GameObject prefab;
+    // Link it in unity
+    [SerializeField] Animation animation;
+
+    private List<GameObject> CollisionList;
+    private float mouseposX;
 
     private void Start()
     {
-        screenCenter.x = Screen.width * 0.5f;
-        screenCenter.y = Screen.height * 0.5f;   
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        lookInput.x = Input.mousePosition.x;
-        lookInput.y = Input.mousePosition.y;
-
-        mouseDistance.x = (lookInput.x - screenCenter.x) / screenCenter.x;
-        mouseDistance.y = (lookInput.y - screenCenter.y) / screenCenter.y;
-
-        transform.position +=  Vector3.right * MoveSpeed * Time.deltaTime;
-
-        MoveSpeed = Mathf.Lerp(MoveSpeed, Input.GetAxisRaw("Horizontal") * inputSpeed, Time.deltaTime);
-
+        RaycastHit rayHit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity))
+        {
+            mouseposX = rayHit.point.x;
+        }
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), 0, 0);
 
         if (Input.GetMouseButtonUp(0))
-        {
             Bonk();
-        }
     }
 
     private void Bonk()
     {
-        Instantiate(prefab, lookInput, Quaternion.identity);
+        //start animation
+
+        //start this code once animation is finished. (change the 0 value to hammer hit)
+        if (animation.clip.length == 0f)
+        {
+            foreach  (GameObject collider in CollisionList)
+            {
+                collider.SetActive(false);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CollisionList.Add(other.gameObject);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        CollisionList.Remove(other.gameObject);
     }
 }
