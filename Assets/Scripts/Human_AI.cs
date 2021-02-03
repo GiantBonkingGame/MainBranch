@@ -12,6 +12,7 @@ public class Human_AI : MonoBehaviour
     [SerializeField] private float fieldWith = 10f;
     [Space]
     [SerializeField] private float maxSpeed = 1f;
+    [SerializeField] private float smoothTime = 1f;
     [SerializeField] private float stoppingDistance = 0.1f;
 
     private float targetPos;
@@ -26,7 +27,7 @@ public class Human_AI : MonoBehaviour
 
     private void Update()
     {
-        transform.position = fieldZero + Vector3.right * Mathf.SmoothDamp(transform.position.x, fieldZero.x + targetPos, ref currentVelocity, 0.01f, maxSpeed, Time.deltaTime);
+        transform.position = fieldZero + Vector3.right * Mathf.SmoothDamp(transform.position.x, fieldZero.x + targetPos, ref currentVelocity, smoothTime, maxSpeed, Time.deltaTime);
         if (Mathf.Abs(targetPos - transform.position.x) <= stoppingDistance)
         {
             NewDestination();
