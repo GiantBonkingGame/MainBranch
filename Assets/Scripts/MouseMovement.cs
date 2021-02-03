@@ -14,10 +14,14 @@ public class MouseMovement : MonoBehaviour
     private List<GameObject> CollisionList;
     private float mouseposX;
 
+    
     private bool bonked;
     private Vector3 rand;
     [SerializeField] float TimeBetweenFrames;
     [SerializeField] float offset;
+    [SerializeField] float hammerOffset;
+    [SerializeField] Vector2 hammerSize;
+
 
     private void Start()
     {
@@ -51,8 +55,17 @@ public class MouseMovement : MonoBehaviour
 
             if (i > 1 && i < 5) { spriteholder.sortingOrder = 4; }
 
-            else { spriteholder.sortingOrder = 1; }                
-            
+            else { spriteholder.sortingOrder = 1; }
+
+            if (i == 3)
+            {
+                Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position + Vector3.down * hammerOffset, hammerSize, 0f);
+                foreach  (Collider2D collider in cols)
+                {
+                    collider.gameObject.GetComponent<Human_AI>()?.Smashed();
+                }
+            }
+
             yield return new WaitForSeconds(TimeBetweenFrames);          
         }
         bonked = false;
@@ -65,6 +78,11 @@ public class MouseMovement : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         CollisionList.Remove(other.gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position + Vector3.down * hammerOffset, hammerSize);
     }
 
 

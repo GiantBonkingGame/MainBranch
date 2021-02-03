@@ -15,6 +15,7 @@ public class Human_AI : MonoBehaviour
     [SerializeField] private float smoothTime = 1f;
     [SerializeField] private float stoppingDistance = 0.1f;
 
+    
     private float targetPos;
 
     private float currentVelocity;
