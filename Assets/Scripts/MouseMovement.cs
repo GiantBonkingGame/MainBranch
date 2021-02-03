@@ -17,6 +17,7 @@ public class MouseMovement : MonoBehaviour
     private bool bonked;
     private Vector3 rand;
     [SerializeField] float TimeBetweenFrames;
+    [SerializeField] float offset;
 
     private void Start()
     {
@@ -32,10 +33,10 @@ public class MouseMovement : MonoBehaviour
             {
                 mouseposX = rayHit.point.x;
             }
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), 0, 0);
+            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX,  MoveSpeed * Time.deltaTime), offset, 0);
 
             if (Input.GetMouseButtonUp(0))
-                Bonk();
+                StartCoroutine(animator());
         }
 
 
@@ -56,23 +57,6 @@ public class MouseMovement : MonoBehaviour
         }
         bonked = false;
     }
-
-    private void Bonk()
-    {
-        StartCoroutine(animator());
-        //start animation
-
-        //start this code once animation is finished. (change the 0 value to hammer hit)
-
-
-        //foreach (GameObject collider in CollisionList)
-        //{
-        //    collider.SetActive(false);
-        //}
-
-    }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
