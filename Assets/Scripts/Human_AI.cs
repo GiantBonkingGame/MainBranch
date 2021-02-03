@@ -42,6 +42,7 @@ public class Human_AI : MonoBehaviour
 
     public void Smashed()
     {
+        Debug.Log("Hit");
         //do the logic for when we are smashed
     }
 
