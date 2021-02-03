@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MouseMovement : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class MouseMovement : MonoBehaviour
 
     private List<GameObject> CollisionList;
     private float mouseposX;
-
+    private Vector3 rand;
     private void Start()
     {
         Cursor.visible = false;
@@ -45,6 +46,8 @@ public class MouseMovement : MonoBehaviour
         }
     }
 
+
+
     private void OnTriggerEnter(Collider other)
     {
         CollisionList.Add(other.gameObject);
@@ -53,4 +56,5 @@ public class MouseMovement : MonoBehaviour
     {
         CollisionList.Remove(other.gameObject);
     }
+
 }

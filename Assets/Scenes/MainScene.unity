@@ -415,8 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 1
-  inputSpeed: 1
-  prefab: {fileID: 253496686600056768, guid: c1a1bed1ed7b7bc4ca24ebd88d2270e5, type: 3}
+  animation: {fileID: 0}
 --- !u!1 &1823042856
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,5 +573,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 0.25, z: 1}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 3.5, y: 17.119316, z: 1}
+  m_Center: {x: 0, y: -8.934658, z: 0}
