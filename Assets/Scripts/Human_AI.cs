@@ -14,11 +14,19 @@ public class Human_AI : MonoBehaviour
     [SerializeField] private float maxSpeed = 1f;
     [SerializeField] private float smoothTime = 1f;
     [SerializeField] private float stoppingDistance = 0.1f;
+    [Space]
+    [SerializeField] private float timeTillDestroyed = 1.5f;
+    [Space]
+    [Range(0f, 1f)]
+    [SerializeField] private float ChangeToFreeze = 0.25f;
 
-    
+
+
     private float targetPos;
 
     private float currentVelocity;
+
+    private float scaredTimer = 0f;
 
     private void Start()
     {
@@ -29,9 +37,19 @@ public class Human_AI : MonoBehaviour
     private void Update()
     {
         transform.position = fieldZero + Vector3.right * Mathf.SmoothDamp(transform.position.x, fieldZero.x + targetPos, ref currentVelocity, smoothTime, maxSpeed, Time.deltaTime);
-        if (Mathf.Abs(targetPos - transform.position.x) <= stoppingDistance)
+
+        if (scaredTimer <= 0f)
         {
-            NewDestination();
+            if (Mathf.Abs(targetPos - transform.position.x) <= stoppingDistance)
+            {
+                NewDestination();
+            }
+        }
+        else
+        {
+            scaredTimer -= Time.deltaTime;
+            if (scaredTimer <= 0f)
+                NewDestination();
         }
     }
 
@@ -40,10 +58,37 @@ public class Human_AI : MonoBehaviour
         targetPos = (Random.value * 2f - 1f) * fieldWith;
     }
 
+    public void HammerSmash(float hitPos)
+    {
+        if (Random.value >= ChangeToFreeze)
+        {
+            if (hitPos < transform.position.x)
+                targetPos = fieldWith;
+            else targetPos = -fieldWith;
+        }
+        else targetPos = transform.position.x;
+
+        scaredTimer = 1.5f;
+    }
+
     public void Smashed()
     {
-        Debug.Log("Hit");
-        //do the logic for when we are smashed
+        //change sprite to puddle of blood
+        scaredTimer = 999f; //just to make it stop moving
+        StartCoroutine(Dying());
+    }
+
+    private IEnumerator Dying()
+    {
+        float timeLeft = timeTillDestroyed;
+        while (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+
+        GameManager.instance.DeleteHuman(this);
+
     }
 
     private void OnDrawGizmosSelected()
