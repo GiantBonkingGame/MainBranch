@@ -53,13 +53,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        timer -= Time.deltaTime;
-        int seconds = (int)(timer % 60f); 
-        timerText.text = "Time Left: " + seconds.ToString("00");
-        if (timer <= 0.0f)
+        if (humans.Count > 0)//<- because of the invoke we could get some wierd behavior with race conditions on the timer
         {
-            Time.timeScale = 0f;
-            DeathScreen.SetActive(true);
+            timer -= Time.deltaTime;
+            int seconds = (int)(timer % 60f);
+            timerText.text = "Time Left: " + seconds.ToString("00");
+            if (timer <= 0.0f)
+            {
+                Time.timeScale = 0f;
+                DeathScreen.SetActive(true);
+            }
         }
     }
 
