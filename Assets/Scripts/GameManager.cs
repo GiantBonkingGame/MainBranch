@@ -9,13 +9,17 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
 
+    public bool end = false;
+
     [SerializeField] private GameObject humanPrefab = null;
     private List<Human_AI> humans = new List<Human_AI>();
     [Space]
+    [SerializeField] private TextMeshProUGUI endScoreText = null;
     [SerializeField] private TextMeshProUGUI scoreText = null;
     [SerializeField] private TextMeshProUGUI timerText = null;
 
     [SerializeField] GameObject DeathScreen;
+    [SerializeField] GameObject NormalScreen;
 
     private float timer;
     [SerializeField] float roundTimeLimit = 15;
@@ -62,6 +66,9 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 DeathScreen.SetActive(true);
+                NormalScreen.SetActive(false);
+                endScoreText.text = score.ToString("0000");
+                end = true;
             }
         }
     }

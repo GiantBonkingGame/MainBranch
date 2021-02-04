@@ -85,8 +85,6 @@ public class Human_AI : MonoBehaviour
 
             yield return new WaitForSeconds(walkSpeed);
         }
-
-        spriteRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void NewDestination()
@@ -115,6 +113,7 @@ public class Human_AI : MonoBehaviour
         spriteRenderer.sprite = blood;
         StartCoroutine(Dying());
         dead = true;
+        spriteRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         GameManager.instance.DeleteHuman(this);
     }
 
