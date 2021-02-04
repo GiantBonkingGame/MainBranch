@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         timer -= Time.deltaTime;
         int seconds = (int)(timer % 60f); 
-        timerText.text = seconds.ToString("Time Left: " + seconds);
+        timerText.text = "Time Left: " + seconds.ToString("00");
         if (timer <= 0.0f)
         {
             Time.timeScale = 0f;
