@@ -5,17 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame ()
+    [SerializeField] GameObject OptionsMenu;
+    [SerializeField] GameObject MainMenuClick;
+    public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void Credits ()
+    public void Credits()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
-    public void QuitGame ()
+    public void Options()
+    {
+        OptionsMenu.SetActive(true);
+        MainMenuClick.SetActive(false);
+    }
+    public void OptionsOff()
+    {
+        OptionsMenu.SetActive(false);
+        MainMenuClick.SetActive(true);
+
+    }
+
+    public void QuitGame()
     {
         Application.Quit();
     }
