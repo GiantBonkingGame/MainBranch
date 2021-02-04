@@ -9,7 +9,7 @@ public class Human_AI : MonoBehaviour
     //[SerializeField] private Transform Hammer = null;
     //[Space]
     [SerializeField] private Sprite blood = null;
-    [SerializeField] private Sprite human = null;
+    [SerializeField] private Sprite[] humans = null;
     [Space]
     [SerializeField] private Vector3 fieldZero = new Vector3();
     [SerializeField] private float fieldWith = 10f;
@@ -35,7 +35,7 @@ public class Human_AI : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = human;
+        spriteRenderer.sprite = humans[Random.Range(0,humans.Length)];
 
         transform.position = fieldZero + Vector3.right * (Random.value * 2f - 1f) * fieldWith;
         NewDestination();
