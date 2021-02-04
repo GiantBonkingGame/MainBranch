@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-/*[RequireComponent(typeof(NavMeshAgent))]*/
+[RequireComponent(typeof(SpriteRenderer))]
 public class Human_AI : MonoBehaviour
 {
     //[SerializeField] private Transform Hammer = null;
@@ -21,6 +21,7 @@ public class Human_AI : MonoBehaviour
     [SerializeField] private float ChangeToFreeze = 0.25f;
 
 
+    private SpriteRenderer spriteRenderer;
 
     private float targetPos;
 
@@ -30,6 +31,8 @@ public class Human_AI : MonoBehaviour
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         transform.position = fieldZero + Vector3.right * (Random.value * 2f - 1f) * fieldWith;
         NewDestination();
     }
@@ -74,8 +77,11 @@ public class Human_AI : MonoBehaviour
     public void Smashed()
     {
         //change sprite to puddle of blood
-        scaredTimer = 999f; //just to make it stop moving
+        targetPos = transform.position.x;
+        scaredTimer = 999f;
+        spriteRenderer.color = Color.red;
         StartCoroutine(Dying());
+        GameManager.instance.DeleteHuman(this);
     }
 
     private IEnumerator Dying()
@@ -86,9 +92,7 @@ public class Human_AI : MonoBehaviour
             timeLeft -= Time.deltaTime;
             yield return null;
         }
-
-        GameManager.instance.DeleteHuman(this);
-
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()

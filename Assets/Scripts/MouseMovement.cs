@@ -41,7 +41,7 @@ public class MouseMovement : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
             {
-                GameManager.instance.SmashAt(transform.position.x); //<- for the human AI
+                
                 StartCoroutine(animator());
             }
         }
@@ -62,6 +62,8 @@ public class MouseMovement : MonoBehaviour
 
             if (i == 2)
             {
+                GameManager.instance.SmashAt(transform.position.x); //<- for the human AI
+
                 Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position + Vector3.down * hammerOffset, hammerSize, 0f);
                 foreach (Collider2D collider in cols)
                 {
