@@ -101,7 +101,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5ddf82eda38eeba47b22650452342a4d, type: 3}
   - {fileID: 21300000, guid: 822a8d97dfb8db146be75c94f0b3dabf, type: 3}
   fieldZero: {x: 0, y: -7, z: 0}
-  fieldWith: 12
+  fieldWith: 11.5
   maxSpeed: 4
   smoothTime: 0.1
   stoppingDistance: 0.1

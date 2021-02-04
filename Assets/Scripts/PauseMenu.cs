@@ -51,7 +51,6 @@ public class PauseMenu : MonoBehaviour
         DeathMenuUI.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
-        print(Time.timeScale);
     }
 
     public void LoadMenu()
