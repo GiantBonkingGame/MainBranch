@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);  
+        DontDestroyOnLoad(this.gameObject);
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
