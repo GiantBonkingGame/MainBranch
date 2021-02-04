@@ -9,12 +9,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject MainMenuClick;
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(0);
     }
 
     public void Credits()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        //we dont have credits
     }
 
     public void Options()
