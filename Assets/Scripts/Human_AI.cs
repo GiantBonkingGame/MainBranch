@@ -8,6 +8,9 @@ public class Human_AI : MonoBehaviour
 {
     //[SerializeField] private Transform Hammer = null;
     //[Space]
+    [SerializeField] private Sprite blood = null;
+    [SerializeField] private Sprite human = null;
+    [Space]
     [SerializeField] private Vector3 fieldZero = new Vector3();
     [SerializeField] private float fieldWith = 10f;
     [Space]
@@ -32,6 +35,7 @@ public class Human_AI : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = human;
 
         transform.position = fieldZero + Vector3.right * (Random.value * 2f - 1f) * fieldWith;
         NewDestination();
@@ -79,7 +83,7 @@ public class Human_AI : MonoBehaviour
         //change sprite to puddle of blood
         targetPos = transform.position.x;
         scaredTimer = 999f;
-        spriteRenderer.color = Color.red;
+        spriteRenderer.sprite = blood;
         StartCoroutine(Dying());
         GameManager.instance.DeleteHuman(this);
     }
