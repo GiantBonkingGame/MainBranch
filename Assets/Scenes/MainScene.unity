@@ -235,7 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9196210f6ad4d274cae70d86e8b23172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PausedGame: 0
   pauseMenuUI: {fileID: 584661488}
   DeathMenuUI: {fileID: 260439917}
 --- !u!1 &260439917
@@ -2955,7 +2954,7 @@ MonoBehaviour:
   - {fileID: -7057163054057295497, guid: 1ef0c288f0a36c14097318ca741e8d70, type: 3}
   - {fileID: -3598381108097957538, guid: 1ef0c288f0a36c14097318ca741e8d70, type: 3}
   spriteholder: {fileID: 704124226}
-  TimeBetweenFrames: 0.3
+  TimeBetweenFrames: 0.15
   offset: -1
   hammerOffset: 5
   hammerSize: {x: 5, y: 5.75}
