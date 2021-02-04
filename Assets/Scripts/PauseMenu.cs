@@ -10,7 +10,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject DeathMenuUI;
 
-    
+
+    private void Start()
+    {
+        PausedGame = false;
+    }
+
     void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.instance.end)
