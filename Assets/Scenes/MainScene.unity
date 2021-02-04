@@ -1860,7 +1860,7 @@ MonoBehaviour:
   scoreText: {fileID: 1232947048}
   timerText: {fileID: 1869328601}
   DeathScreen: {fileID: 260439917}
-  NormalScreen: {fileID: 0}
+  NormalScreen: {fileID: 712100247}
   roundTimeLimit: 15
 --- !u!4 &950371188
 Transform:
