@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Space]
     [SerializeField] private TextMeshProUGUI scoreText = null;
 
+    private float timer;
+    [SerializeField] float roundTimeLimit = 15;
     private int score = 0;
     private int currentWave = 0;
 
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString("0000");
 
         TriggerNextWave();
+        timer = roundTimeLimit;
     }
 
     public void TriggerNextWave()
@@ -40,6 +44,16 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp((Mathf.Sin(currentWave) + 1) / 2, 0.1f, 1f) * currentWave * 10f); i++)
         {
             humans.Add(Instantiate(humanPrefab, Vector3.zero, Quaternion.identity).GetComponent<Human_AI>());
+            timer = roundTimeLimit;
+        }
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0.0f)
+        {
+            // Game Over 
         }
     }
 
