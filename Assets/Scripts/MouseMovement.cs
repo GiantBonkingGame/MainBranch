@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    public float MoveSpeed = 1;
+    public float smoothTime = 1;
 
     // Link it in unity
     [SerializeField] Sprite[] sprites;
@@ -22,12 +22,11 @@ public class MouseMovement : MonoBehaviour
     [SerializeField] float hammerOffset;
     [SerializeField] Vector2 hammerSize;
 
+    private Vector3 CurrentVelocity;
+    [SerializeField] float ClampMin, ClampMax;
 
-    private void Start()
-    {
-        Cursor.visible = false;
-    }
-
+    // Gets the mouse hit info so we can get the x positition as a float 
+    // and make a Object lerp towards the mouse X axis.
     private void Update()
     {
         if (!bonked)
@@ -35,10 +34,12 @@ public class MouseMovement : MonoBehaviour
             RaycastHit rayHit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayHit, Mathf.Infinity))
             {
-                mouseposX = rayHit.point.x;
+                mouseposX = Mathf.Clamp(rayHit.point.x, ClampMin, ClampMax);
             }
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), offset, 0);
-
+            transform.position = Vector3.SmoothDamp(transform.position, Vector3.up * offset + Vector3.right * mouseposX, ref CurrentVelocity, smoothTime);
+            //transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), offset, 0);
+            
+            // Starts the 'bonk' function using a coroutine.
             if (Input.GetMouseButtonUp(0))
             {
                 
@@ -49,6 +50,8 @@ public class MouseMovement : MonoBehaviour
 
     }
 
+
+    // The IEnumerator is used to make the animation and 'slash' work together.
     private IEnumerator animator()
     {
         bonked = true;
@@ -88,6 +91,7 @@ public class MouseMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position + Vector3.down * hammerOffset, hammerSize);
+        Gizmos.DrawLine(Vector3.up * offset + Vector3.right * ClampMin, Vector3.up * offset + Vector3.right * ClampMax);
     }
 
 
