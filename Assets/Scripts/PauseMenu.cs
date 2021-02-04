@@ -44,8 +44,9 @@ public class PauseMenu : MonoBehaviour
     public void Retry()
     {
         DeathMenuUI.SetActive(false);
-        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
+        print(Time.timeScale);
     }
 
     public void LoadMenu()
