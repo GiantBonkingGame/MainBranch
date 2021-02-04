@@ -22,6 +22,9 @@ public class Human_AI : MonoBehaviour
     [Space]
     [Range(0f, 1f)]
     [SerializeField] private float ChangeToFreeze = 0.25f;
+    [Space]
+    [SerializeField] private float walkSpeed = 0.25f;
+    [SerializeField] private float walkRotating = 10f;
 
 
     private SpriteRenderer spriteRenderer;
@@ -32,13 +35,17 @@ public class Human_AI : MonoBehaviour
 
     private float scaredTimer = 0f;
 
+    bool dead = false;
+
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = humans[Random.Range(0,humans.Length)];
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.sprite = humans[Random.Range(0, humans.Length)];
 
         transform.position = fieldZero + Vector3.right * (Random.value * 2f - 1f) * fieldWith;
         NewDestination();
+
+        StartCoroutine(Walking());
     }
 
     private void Update()
@@ -58,6 +65,28 @@ public class Human_AI : MonoBehaviour
             if (scaredTimer <= 0f)
                 NewDestination();
         }
+    }
+
+    private IEnumerator Walking()
+    {
+        bool yes = false;
+        while (!dead)
+        {
+            if (yes)
+            {
+                spriteRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, walkRotating);
+                yes = false;
+            }
+            else
+            {
+                spriteRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, -walkRotating);
+                yes = true;
+            }
+
+            yield return new WaitForSeconds(walkSpeed);
+        }
+
+        spriteRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private void NewDestination()
@@ -85,6 +114,7 @@ public class Human_AI : MonoBehaviour
         scaredTimer = 999f;
         spriteRenderer.sprite = blood;
         StartCoroutine(Dying());
+        dead = true;
         GameManager.instance.DeleteHuman(this);
     }
 
