@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText = null;
     [SerializeField] private TextMeshProUGUI timerText = null;
 
+    [SerializeField] GameObject DeathScreen;
+
     private float timer;
     [SerializeField] float roundTimeLimit = 15;
     private int score = 0;
@@ -52,9 +54,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         timer -= Time.deltaTime;
+        int seconds = (int)(timer % 60f); 
+        timerText.text = seconds.ToString("Time Left: " + seconds);
         if (timer <= 0.0f)
         {
-            timerText.text = timer.ToString("00");
+            Time.timeScale = 0f;
+            DeathScreen.SetActive(true);
         }
     }
 
