@@ -25,8 +25,8 @@ public class MouseMovement : MonoBehaviour
     private Vector3 CurrentVelocity;
     [SerializeField] float ClampMin, ClampMax;
 
-    // Gets the mouse hit info so we can get the x positition as a float 
-    // and make a Object lerp towards the mouse X axis.
+    // Gets the mouse hit info so we can get the x positition as a float, clamp it between 2 points
+    // and make the transform use Smoothdamp to smoothly move towards the mouse X axis.
     private void Update()
     {
         if (!bonked)
