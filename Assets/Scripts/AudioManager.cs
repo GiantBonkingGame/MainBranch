@@ -6,7 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    private AudioSource source;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
 
     private void Awake()
     {
@@ -21,16 +22,22 @@ public class AudioManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        source = GetComponent<AudioSource>();
+        //source = GetComponent<AudioSource>();
     }
 
     public void SetVolume(float volume)
     {
-        source.volume = volume;
+        musicSource.volume = volume;
+        sfxSource.volume = volume;
     }
 
     public float GetVolume()
     {
-        return source.volume;
+        return musicSource.volume;
+    }
+
+    public void Smash()
+    {
+        sfxSource.Play();
     }
 }

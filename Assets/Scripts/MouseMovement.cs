@@ -67,6 +67,8 @@ public class MouseMovement : MonoBehaviour
             {
                 GameManager.instance.SmashAt(transform.position.x); //<- for the human AI
 
+                AudioManager.instance.Smash();
+
                 Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position + Vector3.down * hammerOffset, hammerSize, 0f);
                 foreach (Collider2D collider in cols)
                 {
