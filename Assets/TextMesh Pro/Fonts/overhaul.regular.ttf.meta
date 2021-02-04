@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c7862413e9693c34b99fb08e28205a8d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Overhaul
+  fontNames:
+  - Overhaul
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 138ca92e95b8f8a43afad6727ec9e5a3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
