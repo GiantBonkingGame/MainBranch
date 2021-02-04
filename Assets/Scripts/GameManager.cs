@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public void TriggerNextWave()
     {
         currentWave++;
-        for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp((Mathf.Sin(currentWave) + 1) / 2, 0.1f, 1f) * Mathf.Clamp(currentWave, 1, 40) * 10f); i++)
+        for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp((Mathf.Sin(currentWave) + 1) / 2, 0.1f, 1f) * Mathf.Clamp(currentWave, 1, 4) * 10f); i++)
         {
             humans.Add(Instantiate(humanPrefab, Vector3.zero, Quaternion.identity).GetComponent<Human_AI>());
             timer = roundTimeLimit;
