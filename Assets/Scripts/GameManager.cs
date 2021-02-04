@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject humanPrefab = null;
     private List<Human_AI> humans = new List<Human_AI>();
+    [Space]
+    [SerializeField] private TextMeshProUGUI scoreText = null;
 
     private int score = 0;
     private int currentWave = 0;
@@ -17,7 +20,16 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-        else Destroy(this);
+        else
+        {
+            Debug.LogWarning("Had to destroy an GameManager");
+            Destroy(this);
+        }
+    }
+
+    public void Start()
+    {
+        scoreText.text = score.ToString("0000");
 
         TriggerNextWave(1);
         currentWave++;
@@ -33,9 +45,10 @@ public class GameManager : MonoBehaviour
 
     public void DeleteHuman(Human_AI deadHumanAI)
     {
-        score++;
+        score += 10;
+        scoreText.text = score.ToString("0000");
+
         humans.Remove(deadHumanAI);
-        Destroy(deadHumanAI.gameObject);
 
         if (humans.Count == 0)
         {
