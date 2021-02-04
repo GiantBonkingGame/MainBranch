@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   humanPrefab: {fileID: 3875795711614547411, guid: 3ef52f963aac519469d5e890c6322844,
     type: 3}
   scoreText: {fileID: 1232947048}
-  timerText: {fileID: 0}
+  timerText: {fileID: 1869328601}
   DeathScreen: {fileID: 260439917}
   roundTimeLimit: 15
 --- !u!4 &950371188
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 1869328602}
   - component: {fileID: 1869328601}
   m_Layer: 5
-  m_Name: Score Text (1)
+  m_Name: Timer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
