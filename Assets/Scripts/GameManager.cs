@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = score.ToString("0000");
 
-        TriggerNextWave(1);
-        currentWave++;
+        TriggerNextWave();
     }
 
-    public void TriggerNextWave(int waveNumber)
+    public void TriggerNextWave()
     {
-        for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp((Mathf.Sin(waveNumber) + 1) / 2, 0.1f, 1f) * waveNumber * 10f); i++)
+        currentWave++;
+        for (int i = 0; i < Mathf.RoundToInt(Mathf.Clamp((Mathf.Sin(currentWave) + 1) / 2, 0.1f, 1f) * currentWave * 10f); i++)
         {
             humans.Add(Instantiate(humanPrefab, Vector3.zero, Quaternion.identity).GetComponent<Human_AI>());
         }
@@ -52,8 +52,7 @@ public class GameManager : MonoBehaviour
 
         if (humans.Count == 0)
         {
-            TriggerNextWave(currentWave);
-            currentWave++;
+            Invoke("TriggerNextWave", 2f);
         }
     }
 
