@@ -6,8 +6,11 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip humansSmash = null;
+    [SerializeField] private AudioClip emptySmash = null;
+
+    [SerializeField] private AudioSource musicSource = null;
+    [SerializeField] private AudioSource sfxSource = null;
 
     private void Awake()
     {
@@ -36,8 +39,10 @@ public class AudioManager : MonoBehaviour
         return musicSource.volume;
     }
 
-    public void Smash()
+    public void Smash(bool hit)
     {
-        sfxSource.Play();
+        if (hit)
+            sfxSource.PlayOneShot(humansSmash);
+        else sfxSource.PlayOneShot(emptySmash);
     }
 }
