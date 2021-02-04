@@ -42,10 +42,11 @@ public class MouseMovement : MonoBehaviour
             }
             transform.position = Vector3.SmoothDamp(transform.position, Vector3.up * offset + Vector3.right * mouseposX, ref CurrentVelocity, smoothTime);
             //transform.position = new Vector3(Mathf.Lerp(transform.position.x, mouseposX, MoveSpeed * Time.deltaTime), offset, 0);
-
+            
             // Starts the 'bonk' function using a coroutine.
-            if (Input.GetMouseButtonDown(0) && !PauseMenu.PausedGame)
+            if (Input.GetMouseButtonUp(0))
             {
+                
                 StartCoroutine(animator());
             }
         }
