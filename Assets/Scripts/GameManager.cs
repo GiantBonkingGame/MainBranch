@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private List<Human_AI> humans = new List<Human_AI>();
     [Space]
     [SerializeField] private TextMeshProUGUI scoreText = null;
+    [SerializeField] private TextMeshProUGUI timerText = null;
 
     private float timer;
     [SerializeField] float roundTimeLimit = 15;
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0.0f)
         {
-            // Game Over 
+            timerText.text = timer.ToString("00");
         }
     }
 
